@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+# RealEstateHub: Your One-Stop Shop for All Things Real Estate
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RealEstateHub is a platform designed to streamline your real estate experience. Whether you're buying, selling, or investing, it offers comprehensive listings, connects you with relevant agents, and provides valuable resources – all in one convenient location.
 
-Currently, two official plugins are available:
+# Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+RealEstateHub is built with a modern tech stack for performance and reliablity.
 
-## Expanding the ESLint configuration
+## Frontend
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React: For building a dynamic and user friendly interface
+- TypeScript: Enforces type safety for cleaner and more maintainable code.
+- Tailwind CSS: Provides utility-first classes for rapid UI development and customization.
 
-- Configure the top-level `parserOptions` property like this:
+## Backend
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Firebase: Handles user authentication, data storage (Firestore), real-time updates, and potentially cloud functions for specific backend logic.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## State Management
+
+- Redux: For managing complex application state, especially if your project grows significantly. Consider using a lighter alternative like Zustand or Context API for simpler state management needs.
+
+## Development Tools
+
+- ESLint: Maintains code quality and enforces coding standards.
+- Prettier: Formats code automatically for consistency.
+
+## Build Tools
+
+Vite: Provides blazing-fast development server and build times.
+
+# Features to be implemented
+
+- User Registration and Login
+- Propery Search
+- Different Categories - Property selling, PG's, Houses for rent
+- Chat with Broker's and dealer's
+- Maps to set location
+- Google Analytics
