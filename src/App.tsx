@@ -1,9 +1,15 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Login from "./pages/Login";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
-      <div className="text-white">Hello</div>
+      <Toaster />
+      <Routes>
+        <Route path="/auth/login" element={<Login />} />
+      </Routes>
     </>
   );
 }
