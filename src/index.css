@@ -7,12 +7,14 @@
   font-weight: 400;
 
   color: #222;
-  background-color: rgb(235, 235, 235);
+  background-color: #ebebeb;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --light-color: #ebebeb;
 }
 
 body {
@@ -20,4 +22,17 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: orangered;
+  border-radius: 1rem;
+  border: 1px solid var(--light-color);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light-color);
 }

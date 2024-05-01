@@ -3,6 +3,7 @@ import { EmailIcon, EyeClosedIcon, EyeIcon, KeyIcon } from "../assets/Icons";
 import { Button } from "../components/Button";
 import toast from "react-hot-toast";
 import GoogleAuth from "../components/GoogleAuth";
+import { NavLink } from "react-router-dom";
 
 interface LoginFormData {
   email: string;
@@ -32,7 +33,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="w-full h-20">
-      <div className="w-full h-full my-10 mx-auto md:w-2/5">
+      <div className="w-full h-full my-6 mx-auto md:w-2/5">
         <div className="w-full flex flex-col gap-6">
           <header className="text-slate-700 text-center flex flex-col gap-3">
             <h1 className="font-bold text-4xl ">Login</h1>
@@ -85,7 +86,17 @@ const Login: React.FC = () => {
                   </button>
                 </div>
               </div>
-              <Button onclick={handleSubmit} />
+              <Button onclick={handleSubmit} title="Submit" />
+              <p className="text-center">
+                Don't have an account ?{" "}
+                <NavLink
+                  to={"/auth/signup"}
+                  className="text-orange-500 font-medium"
+                >
+                  Signup
+                </NavLink>{" "}
+                to get started
+              </p>
             </div>
           </main>
           <div></div>
