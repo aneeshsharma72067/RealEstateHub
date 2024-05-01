@@ -103,7 +103,6 @@ export const UserIcon = ({ size = 46, color = "currentColor", ...props }) => (
   </svg>
 );
 
-
 export const ListIcon = ({
   size = 46,
   strokeWidth = 1,
@@ -125,5 +124,32 @@ export const ListIcon = ({
     <path d="M4.5 12h15" />
     <path d="M4.5 8.25h15" />
     <path d="M4.5 15.75h15" />
+  </svg>
+);
+
+export const SearchIcon = ({ size = 46, color = "currentColor", ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    fill={color}
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="m21.407 19.753-4.41-4.41a8.148 8.148 0 0 0 1.633-4.903c0-4.516-3.674-8.19-8.19-8.19s-8.19 3.674-8.19 8.19 3.674 8.19 8.19 8.19a8.148 8.148 0 0 0 4.902-1.633l4.41 4.41a1.171 1.171 0 0 0 1.655-1.654ZM4.59 10.44a5.85 5.85 0 1 1 5.85 5.85 5.857 5.857 0 0 1-5.85-5.85Z" />
+  </svg>
+);
+
+export const LocateIcon = ({ size = 46, color = "currentColor", ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    fill={color}
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+    <path d="M13 4.069V2h-2v2.069A8.01 8.01 0 0 0 4.069 11H2v2h2.069A8.008 8.008 0 0 0 11 19.931V22h2v-2.069A8.007 8.007 0 0 0 19.931 13H22v-2h-2.069A8.008 8.008 0 0 0 13 4.069ZM12 18c-3.309 0-6-2.691-6-6s2.691-6 6-6 6 2.691 6 6-2.691 6-6 6Z" />
   </svg>
 );
