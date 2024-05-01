@@ -89,3 +89,41 @@ export const GoogleColorIcon = ({
     />
   </svg>
 );
+
+export const UserIcon = ({ size = 46, color = "currentColor", ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    fill={color}
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75S17.376 2.25 12 2.25ZM9.646 7.726c.594-.63 1.43-.976 2.354-.976.924 0 1.753.349 2.349.982.604.64.898 1.502.829 2.429C15.038 12 13.614 13.5 12 13.5c-1.614 0-3.042-1.5-3.178-3.34-.069-.934.225-1.798.824-2.434ZM12 20.25a8.227 8.227 0 0 1-5.906-2.495c.44-.626 1-1.16 1.647-1.567C8.936 15.422 10.448 15 12 15c1.552 0 3.064.422 4.258 1.188a5.76 5.76 0 0 1 1.648 1.567A8.223 8.223 0 0 1 12 20.25Z" />
+  </svg>
+);
+
+
+export const ListIcon = ({
+  size = 46,
+  strokeWidth = 1,
+  color = "currentColor",
+  ...props
+}) => (
+  <svg
+    width={size}
+    height={size}
+    fill="none"
+    stroke={color}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth={strokeWidth}
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path d="M4.5 12h15" />
+    <path d="M4.5 8.25h15" />
+    <path d="M4.5 15.75h15" />
+  </svg>
+);
