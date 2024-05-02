@@ -7,7 +7,7 @@ type Props = {};
 const Navbar: React.FC<Props> = (props) => {
   return (
     <section className="">
-      <div className="flex items-center justify-between text-[0.9rem]">
+      <div className="flex flex-col md:flex-row items-center justify-between text-[0.9rem]">
         <div>
           <div>Logo</div>
         </div>
