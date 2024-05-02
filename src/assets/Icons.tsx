@@ -153,3 +153,23 @@ export const LocateIcon = ({ size = 46, color = "currentColor", ...props }) => (
     <path d="M13 4.069V2h-2v2.069A8.01 8.01 0 0 0 4.069 11H2v2h2.069A8.008 8.008 0 0 0 11 19.931V22h2v-2.069A8.007 8.007 0 0 0 19.931 13H22v-2h-2.069A8.008 8.008 0 0 0 13 4.069ZM12 18c-3.309 0-6-2.691-6-6s2.691-6 6-6 6 2.691 6 6-2.691 6-6 6Z" />
   </svg>
 );
+
+export const MenuIcon = ({ isNavActive = false }) => (
+  <div className="flex flex-col gap-[0.36rem]">
+    <div
+      className={`h-[0.2rem] w-6 rounded-full bg-slate-600 duration-300 origin-left ${
+        isNavActive ? "rotate-45" : "rotate-0"
+      }`}
+    ></div>
+    <div
+      className={`h-[0.2rem] w-6 rounded-full bg-slate-600 duration-300 origin-center ${
+        isNavActive ? "translate-x-10 opacity-0" : "translate-x-0 opacity-100"
+      }`}
+    ></div>
+    <div
+      className={`h-[0.2rem] w-6 rounded-full bg-slate-600 duration-300 origin-left ${
+        isNavActive ? "-rotate-45" : "rotate-0"
+      }`}
+    ></div>
+  </div>
+);
