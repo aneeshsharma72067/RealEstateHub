@@ -5,7 +5,7 @@ import { Button } from "../components/Button";
 type Props = {};
 type CurrentTab = "buy" | "rent" | "pg";
 
-const Home: React.FC<Props> = (props) => {
+const Home: React.FC<Props> = () => {
   const [current, setCurrent] = useState<CurrentTab>("buy");
 
   const onTabChange = (newTab: CurrentTab) => {
@@ -109,7 +109,9 @@ const Home: React.FC<Props> = (props) => {
         </section>
         <section className="px-14 flex flex-col gap-10">
           <div>
-            <h1 className="text-3xl font-bold text-zinc-800">Check the Latest Price Trends</h1>
+            <h1 className="text-3xl font-bold text-zinc-800">
+              Check the Latest Price Trends
+            </h1>
           </div>
           <div className="w-full flex gap-6 h-48">
             <div className="flex-[0.3] bg-green-400 rounded-md">

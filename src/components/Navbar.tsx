@@ -4,7 +4,7 @@ import { ListIcon, MenuIcon, UserIcon } from "../assets/Icons";
 
 type Props = {};
 
-const Navbar: React.FC<Props> = (props) => {
+const Navbar: React.FC<Props> = () => {
   const [isNavActive, setIsNavActive] = useState<boolean>(false);
 
   return (
@@ -14,7 +14,7 @@ const Navbar: React.FC<Props> = (props) => {
           className="flex items-center justify-center"
           onClick={() => setIsNavActive(!isNavActive)}
         >
-          <MenuIcon isNavActive={isNavActive}/>
+          <MenuIcon isNavActive={isNavActive} />
         </button>
       </div>
       <section
