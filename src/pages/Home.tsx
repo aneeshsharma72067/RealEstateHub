@@ -4,7 +4,7 @@ import { Button } from "../components/Button";
 
 type Props = {};
 type CurrentTab = "buy" | "rent" | "pg";
-
+  
 const Home: React.FC<Props> = () => {
   const [current, setCurrent] = useState<CurrentTab>("buy");
 
