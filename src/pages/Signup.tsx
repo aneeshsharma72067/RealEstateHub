@@ -3,7 +3,7 @@ import { EmailIcon, EyeClosedIcon, EyeIcon, KeyIcon } from "../assets/Icons";
 import { Button } from "../components/Button";
 import toast from "react-hot-toast";
 import GoogleAuth from "../components/GoogleAuth";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
 
 interface signupFormData {
   email: string;
@@ -11,6 +11,10 @@ interface signupFormData {
 }
 
 const Signup: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const signupType = searchParams.get("signupType");
+  const navigate = useNavigate();
+
   const [signupFormData, setSignupFormData] = useState<signupFormData>({
     email: "",
     password: "",
@@ -20,6 +24,9 @@ const Signup: React.FC = () => {
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
     console.log(signupFormData);
     toast.success("Form Sumbitted");
+    if (signupType === "owner") {
+      navigate("/owner-dashboard");
+    }
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (

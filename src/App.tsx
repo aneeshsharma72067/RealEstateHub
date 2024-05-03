@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
+import OwnerDashboard from "./pages/OwnerDashboard";
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
       <div className="flex flex-col gap-4">
         <Navbar />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/owner-dashboard" element={<OwnerDashboard />} />
         </Routes>
       </div>
     </>
