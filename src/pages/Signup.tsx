@@ -25,7 +25,7 @@ const Signup: React.FC = () => {
     console.log(signupFormData);
     toast.success("Form Sumbitted");
     if (signupType === "owner") {
-      navigate("/owner-dashboard");
+      navigate("/owner-onboarding");
     }
   };
 
