@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { LocateIcon, SearchIcon } from "../assets/Icons";
 import { Button } from "../components/Button";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
-type CurrentTab = "buy" | "rent" | "pg";
+type CurrentTab = "buy" | "rent" | "pg" | "plot" | "";
 
 const PropertyTypeAndSearch: React.FC<Props> = () => {
-  const [current, setCurrent] = useState<CurrentTab>("buy");
+  const navigate = useNavigate();
+  const [current, setCurrent] = useState<CurrentTab>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const onTabChange = (newTab: CurrentTab) => {
     setCurrent(newTab);
@@ -17,7 +19,7 @@ const PropertyTypeAndSearch: React.FC<Props> = () => {
     if (!searchQuery) {
       toast.error("Please enter something to search");
     } else {
-      toast.success("Query Searched");
+      navigate(`/search?q=${searchQuery}`);
     }
   };
   return (
@@ -47,6 +49,14 @@ const PropertyTypeAndSearch: React.FC<Props> = () => {
             onClick={() => onTabChange("pg")}
           >
             PG
+          </div>
+          <div
+            className={`font-bold cursor-pointer ${
+              current === "plot" && "border-b-4 border-b-orange-500"
+            } py-4 px-2`}
+            onClick={() => onTabChange("plot")}
+          >
+            Plots
           </div>
         </div>
       </div>

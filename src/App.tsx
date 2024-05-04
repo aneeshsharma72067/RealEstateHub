@@ -10,6 +10,8 @@ import PG from "./pages/PG";
 import HousesForRent from "./pages/HousesForRent";
 import Properties from "./pages/Properties";
 import Layout from "./pages/Layout";
+import Search from "./pages/Search";
+import Plots from "./pages/Plots";
 
 function App() {
   return (
@@ -18,15 +20,17 @@ function App() {
       <div className="flex flex-col gap-4">
         <Navbar />
         <Routes>
-          <Route path="/auth/login" element={<Login />} />
-          <Route path="/auth/signup" element={<Signup />} />
-          <Route path="/owner-dashboard" element={<OwnerDashboard />} />
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/property-and-land" element={<Properties />} />
             <Route path="/houses-for-rent" element={<HousesForRent />} />
             <Route path="/pg-houses" element={<PG />} />
+            <Route path="/buy-plot" element={<Plots />} />
           </Route>
+          <Route path="/search" element={<Search />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/signup" element={<Signup />} />
+          <Route path="/owner-dashboard" element={<OwnerDashboard />} />
         </Routes>
       </div>
     </>
