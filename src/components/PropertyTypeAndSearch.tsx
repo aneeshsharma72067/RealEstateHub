@@ -5,11 +5,11 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 type Props = {};
-type CurrentTab = "buy" | "rent" | "pg" | "plot" | "";
+type CurrentTab = "buy" | "rent" | "pg" | "plot";
 
 const PropertyTypeAndSearch: React.FC<Props> = () => {
   const navigate = useNavigate();
-  const [current, setCurrent] = useState<CurrentTab>("");
+  const [current, setCurrent] = useState<CurrentTab>("buy");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const onTabChange = (newTab: CurrentTab) => {
     setCurrent(newTab);

@@ -12,6 +12,7 @@ import Properties from "./pages/Properties";
 import Layout from "./pages/Layout";
 import Search from "./pages/Search";
 import Plots from "./pages/Plots";
+import PriceTrends from "./pages/PriceTrends";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Signup />} />
           <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+          <Route path="/price-trends" element={<PriceTrends />} />
         </Routes>
       </div>
     </>
