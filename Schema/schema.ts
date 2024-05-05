@@ -1,6 +1,5 @@
 interface User {
   uid: string
-  name: string
   username: string
   firstname: string
   lastname: string
