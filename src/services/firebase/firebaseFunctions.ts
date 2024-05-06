@@ -2,6 +2,7 @@ import { addDoc, collection, getDocs, query, serverTimestamp, where } from 'fire
 import { firebaseAuth, firestore } from './config';
 import { UserCredential } from 'firebase/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 
 
 //signup
