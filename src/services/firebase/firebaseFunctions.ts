@@ -2,11 +2,10 @@ import { addDoc, collection, getDocs, query, serverTimestamp, where } from 'fire
 import { firebaseAuth, firestore } from './config';
 import { UserCredential } from 'firebase/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { FirebaseError } from 'firebase/auth';
 
 
 //signup
-const signup = async (userData: App.SingupUserData) => {
+const signup = async (userData: object) => {
     try {
         const { firstName, lastName, username, email, password } = userData;
 
@@ -16,7 +15,7 @@ const signup = async (userData: App.SingupUserData) => {
             password
         );
 
-        const user: App.User = {
+        const user: object = {
            uid: newUser.user.uid,
            username,
            firstName,

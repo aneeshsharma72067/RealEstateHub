@@ -81,3 +81,6 @@ interface HouseForRent{
 }
 
 
+export type { User, Property, PayingGuest, HouseForRent };
+
+
