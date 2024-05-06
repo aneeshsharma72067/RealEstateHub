@@ -1,12 +1,11 @@
 interface User {
   uid: string
-  name: string
   username: string
   firstname: string
   lastname: string
   email: string
   type: Enum('Seller', 'Buyer')
-  description: string
+  bio: string
   created_at: Date
 }
 
@@ -80,3 +79,8 @@ interface HouseForRent{
   }
   distance_to_market: number
 }
+
+
+export type { User, Property, PayingGuest, HouseForRent };
+
+
