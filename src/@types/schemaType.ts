@@ -1,16 +1,17 @@
-interface User {
+import { FieldValue } from "firebase/firestore";
+
+export interface User {
   uid: string;
-  name: string;
-  username: string;
+  username?: string;
   firstname?: string;
   lastname?: string;
   email: string;
-  description?: string;
-  created_at: Date;
+  bio?: string;
+  created_at: FieldValue;
   ownerid?: string;
 }
 
-interface Owner {
+export interface Owner {
   ownerid: string;
   uid: string;
   phoneNumber?: string;
@@ -24,7 +25,7 @@ interface Owner {
   };
 }
 
-interface Houses {
+export interface Houses {
   house_id: string;
   bhk: {
     bedroom: number;
@@ -55,7 +56,7 @@ interface Houses {
   distance_to_market: number;
 }
 
-interface PG {
+export interface PG {
   pg_id: string;
   num_rooms_available: number;
   num_rooms_total: number;
@@ -78,7 +79,7 @@ interface PG {
   distance_to_market: number;
 }
 
-interface Rental {
+export interface Rental {
   renthouse_id: string;
   is_furnished: boolean;
   has_parking: boolean;
@@ -102,7 +103,7 @@ interface Rental {
   owner: Owner;
 }
 
-interface Plot {
+export interface Plot {
   plot_id: string;
   address: {
     city: string;
@@ -119,13 +120,3 @@ interface Plot {
   amenities: string[];
   images?: string[];
 }
-
-namespace Forms{
-  export interface SignUpFormData {
-    email: string;
-    password: string
-  }
-}
-
-
-
