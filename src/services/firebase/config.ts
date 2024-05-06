@@ -1,4 +1,8 @@
 import firebase from 'firebase/app'; 
+import 'firebase/auth';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: process.env.VITE_API_KEY,
@@ -9,6 +13,10 @@ const firebaseConfig = {
     appId: process.env.APP_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseAuth = getAuth(firebaseApp);
+const firestore = getFirestore();
+const storage = getStorage(firebaseApp);
 
-export default firebase;
+export { firebaseApp, firebaseAuth, firestore, storage };
+
