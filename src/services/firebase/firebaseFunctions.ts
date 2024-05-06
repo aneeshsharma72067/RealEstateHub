@@ -1,60 +1,50 @@
 import { addDoc, collection, getDocs, query, serverTimestamp, where } from 'firebase/firestore';
 import { firebaseAuth, firestore } from './config';
-import { hashSync } from 'bcryptjs';
+import { UserCredential } from 'firebase/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FirebaseError } from 'firebase/auth';
 
 
 //signup
-const signup = async (formData: object) => {
+const signup = async (userData: App.SingupUserData) => {
     try {
-        const { firstName, lastName, username, email, password } = formData;
+        const { firstName, lastName, username, email, password } = userData;
 
-        const existingEmail = await getDocs(
-            query(collection(firestore, 'users'), where('email', '==', email))
+        const newUser: UserCredential = await createUserWithEmailAndPassword(
+            firebaseAuth,
+            email,
+            password
         );
-        if (!existingEmail.empty) {
-            throw new Error('Email already exists');
-        }
 
-        const existingUsername = await getDocs(
-            query(collection(firestore, "users"), where("username", "==", username))
-        );
-        if (!existingUsername.empty) {
-            throw new Error('Username is already taken');
-        }
+        const user: App.User = {
+           uid: newUser.user.uid,
+           username,
+           firstName,
+           lastName,
+           email,
+           type: 'Buyer' || 'Seller',
+           bio: '',
+           created_at: serverTimestamp(),
+        };
 
-        const hashPassowrd = hashSync(password, 10);
-        const newUser = await createUserWithEmailAndPassword(firebaseAuth, email, hashPassowrd);
+        const result = await addDoc(collection(firestore, "users"), user);
 
-        if (!newUser) {
-            throw Error("Failed to create user");
-        }
-
-        const result = await addDoc(collection(firestore, 'users'), {
-            user_id: newUser.user.uid,
-            username: username,
-            description: '',
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            type: 'Buyer' || 'Seller',
-            created_at: serverTimestamp(),
-            password: hashPassowrd,
-        });
-
-
-        if (!result) {
-            throw Error("Failed to create user");
-        }
-        return result;
-
+        return {
+            success: true,
+            error: null,
+            userData: user,
+        };
     } catch (error) {
-        console.error(error);
-        throw error;
+        const errorMessage = (error as FirebaseError)?.message;
+        return {
+            success: false,
+            error: errorMessage,
+        };
     }
 };
 
 export { signup };
+
 
 
 

@@ -5,7 +5,7 @@ interface User {
   lastname: string
   email: string
   type: Enum('Seller', 'Buyer')
-  description: string
+  bio: string
   created_at: Date
 }
 
@@ -79,3 +79,5 @@ interface HouseForRent{
   }
   distance_to_market: number
 }
+
+
