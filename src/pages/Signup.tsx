@@ -4,6 +4,9 @@ import { Button } from "../components/Button";
 import toast from "react-hot-toast";
 import GoogleAuth from "../components/GoogleAuth";
 import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import { signup } from "../services/firebase/firebaseFunctions";
+import { useUserStore } from "../stores/store";
+import { User } from "../@types/schemaType";
 
 interface signupFormData {
   email: string;
@@ -11,6 +14,9 @@ interface signupFormData {
 }
 
 const Signup: React.FC = () => {
+  const user: User | null = useUserStore((state) => state.currentUser);
+  const setUser = useUserStore((state) => state.updateUser);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const signupType = searchParams.get("signupType");
   const navigate = useNavigate();
@@ -20,13 +26,32 @@ const Signup: React.FC = () => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
-    console.log(signupFormData);
-    toast.success("Form Sumbitted");
+  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async () => {
+    if (signupFormData.email === "") {
+      toast.error("Please enter a valid Email !!");
+      return;
+    }
+    if (signupFormData.password === "") {
+      toast.error("Password can't be empty !!");
+      return;
+    }
+    setLoading(true);
+    const response = await signup(signupFormData);
+    if (response.success) {
+      toast.success("Signed Up successfully");
+      console.log(response.data);
+      if (response.data) {
+        setUser(response.data);
+      }
+    } else {
+      toast.error(response.error);
+    }
     if (signupType === "owner") {
       navigate("/owner-onboarding");
     }
+    setLoading(false);
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -93,7 +118,7 @@ const Signup: React.FC = () => {
                   </button>
                 </div>
               </div>
-              <Button onclick={handleSubmit} title="Submit" />
+              <Button onclick={handleSubmit} title="Submit" loading={loading} />
               <p className="text-center">
                 Already have an account ?{" "}
                 <NavLink
