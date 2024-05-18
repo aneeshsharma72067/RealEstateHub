@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { AddPersonIcon, ListIcon, LoginIcon, MenuIcon, UserIcon } from "../assets/Icons";
+import {
+  AddPersonIcon,
+  ListIcon,
+  LoginIcon,
+  MenuIcon,
+  UserIcon,
+} from "../assets/Icons";
+import { useUserStore } from "../stores/store";
+import { User } from "../@types/schemaType";
 
 type Props = {};
 
 const Navbar: React.FC<Props> = () => {
+  const user: User | null = useUserStore((state) => state.currentUser);
+
   const [isNavActive, setIsNavActive] = useState<boolean>(false);
   const [isAuthMenuActive, setIsAuthMenuActive] = useState<boolean>(false);
 
@@ -43,7 +53,8 @@ const Navbar: React.FC<Props> = () => {
               </li>
             </ul>
           </nav>
-          <div className="hidden md:block relative">
+          <div className="hidden md:flex relative items-center justify-center gap-6">
+            <div>{user ? <span>{user.email}</span> : <span> Guest</span>}</div>
             <div
               className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-zinc-300 duration-200 hover:shadow-[0_5px_10px_rgba(0,0,0,0.3)] cursor-pointer"
               onClick={() => setIsAuthMenuActive(!isAuthMenuActive)}
@@ -52,27 +63,36 @@ const Navbar: React.FC<Props> = () => {
               <UserIcon color="#7a7a7a" size={30} />
             </div>
             {isAuthMenuActive && (
-              <div className="absolute w-full -left-4 -bottom-44">
+              <div className={`absolute w-full top-16 ${user ? '-right-40' :'-right-4'}`}>
                 <div className="flex flex-col rounded-lg overflow-hidden w-32 shadow-[0_5px_10px_rgba(0,0,0,0.3)]">
                   <div className="px-5 py-3 bg-slate-100 duration-300">
                     Guest
                   </div>
                   <hr />
-                  <NavLink
-                    to={"/auth/login"}
-                    className="p-3 bg-white duration-300 hover:bg-slate-100 flex items-center justify-start gap-4"
-                  >
-                    <LoginIcon size={30} color="#666" />
-                    <span className="text-base">Login</span>
-                  </NavLink>
-                  <hr />
-                  <NavLink
-                    to={"/auth/signup"}
-                    className="py-3 px-4 bg-white duration-300 hover:bg-slate-100 flex items-center justify-start gap-4"
-                  >
-                    <AddPersonIcon size={24} color="#666" />
-                    <span className="text-base">Signup</span>
-                  </NavLink>
+                  {user ? (
+                    <button className="py-3">
+                      Logout
+                    </button>
+                  ) : (
+                    <>
+                      <NavLink
+                        to={"/auth/login"}
+                        className="p-3 bg-white duration-300 hover:bg-slate-100 flex items-center justify-start gap-4"
+                      >
+                        <LoginIcon size={30} color="#666" />
+                        <span className="text-base">Login</span>
+                      </NavLink>
+                      <hr />
+                      <NavLink
+                        to={"/auth/signup"}
+                        className="py-3 px-4 bg-white duration-300 hover:bg-slate-100 flex items-center justify-start gap-4"
+                      >
+                        <AddPersonIcon size={24} color="#666" />
+                        <span className="text-base">Signup</span>
+                      </NavLink>
+                    </>
+                    
+                  )}
                 </div>
               </div>
             )}

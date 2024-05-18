@@ -48,10 +48,12 @@ const Signup: React.FC = () => {
     } else {
       toast.error(response.error);
     }
+    setLoading(false);
     if (signupType === "owner") {
       navigate("/owner-onboarding");
+    } else {
+      navigate("/");
     }
-    setLoading(false);
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
