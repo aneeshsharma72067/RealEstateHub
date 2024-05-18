@@ -3,7 +3,7 @@ import { EmailIcon, EyeClosedIcon, EyeIcon, KeyIcon } from "../assets/Icons";
 import { Button } from "../components/Button";
 import toast from "react-hot-toast";
 import GoogleAuth from "../components/GoogleAuth";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { useUserStore } from "../stores/store";
 import { User } from "../@types/schemaType";
 import { login } from "../services/firebase/firebaseFunctions";
@@ -57,6 +57,9 @@ const Login: React.FC = () => {
     });
   };
 
+  if (user) {
+    return <Navigate to={"/"} />;
+  }
   return (
     <div className="w-full h-20">
       <div className="w-full h-full my-6 mx-auto md:w-2/5">

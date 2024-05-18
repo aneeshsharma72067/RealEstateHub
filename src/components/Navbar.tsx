@@ -9,14 +9,27 @@ import {
 } from "../assets/Icons";
 import { useUserStore } from "../stores/store";
 import { User } from "../@types/schemaType";
+import { logout } from "../services/firebase/firebaseFunctions";
+import toast from "react-hot-toast";
 
 type Props = {};
 
 const Navbar: React.FC<Props> = () => {
   const user: User | null = useUserStore((state) => state.currentUser);
+  const setUserNull = useUserStore((state) => state.logoutUser);
 
   const [isNavActive, setIsNavActive] = useState<boolean>(false);
   const [isAuthMenuActive, setIsAuthMenuActive] = useState<boolean>(false);
+
+  const handleLogout = async () => {
+    const res = await logout();
+    if (res.success) {
+      toast.success("Logged out successfully");
+      setUserNull();
+    } else {
+      toast.error("Something went wrong !!");
+    }
+  };
 
   return (
     <>
@@ -63,14 +76,18 @@ const Navbar: React.FC<Props> = () => {
               <UserIcon color="#7a7a7a" size={30} />
             </div>
             {isAuthMenuActive && (
-              <div className={`absolute w-full top-16 ${user ? '-right-40' :'-right-4'}`}>
+              <div
+                className={`absolute w-full top-16 ${
+                  user ? "-right-40" : "-right-4"
+                }`}
+              >
                 <div className="flex flex-col rounded-lg overflow-hidden w-32 shadow-[0_5px_10px_rgba(0,0,0,0.3)]">
                   <div className="px-5 py-3 bg-slate-100 duration-300">
                     Guest
                   </div>
                   <hr />
                   {user ? (
-                    <button className="py-3">
+                    <button className="py-3" onClick={handleLogout}>
                       Logout
                     </button>
                   ) : (
@@ -91,7 +108,6 @@ const Navbar: React.FC<Props> = () => {
                         <span className="text-base">Signup</span>
                       </NavLink>
                     </>
-                    
                   )}
                 </div>
               </div>

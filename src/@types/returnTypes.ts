@@ -1,5 +1,5 @@
-export interface ResponseData<T> {
+export interface ResponseData<T = undefined> {
   success: boolean;
   error: string | null;
-  data: T | null;
+  data?: T | null;
 }

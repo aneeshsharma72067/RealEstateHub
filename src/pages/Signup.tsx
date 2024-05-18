@@ -3,7 +3,12 @@ import { EmailIcon, EyeClosedIcon, EyeIcon, KeyIcon } from "../assets/Icons";
 import { Button } from "../components/Button";
 import toast from "react-hot-toast";
 import GoogleAuth from "../components/GoogleAuth";
-import { NavLink, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  NavLink,
+  Navigate,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { signup } from "../services/firebase/firebaseFunctions";
 import { useUserStore } from "../stores/store";
 import { User } from "../@types/schemaType";
@@ -64,7 +69,9 @@ const Signup: React.FC = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  if (user) {
+    return <Navigate to={"/"} />;
+  }
   return (
     <div className="w-full no-scroll">
       <div className="w-full h-full my-6 mx-auto md:w-2/5">

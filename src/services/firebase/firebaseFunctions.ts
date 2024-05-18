@@ -7,7 +7,11 @@ import {
   where,
 } from "firebase/firestore";
 import { firebaseAuth, firestore } from "./config";
-import { UserCredential, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  UserCredential,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { User } from "../../@types/schemaType";
@@ -82,6 +86,22 @@ export const login = async (
       success: false,
       error: errorMessage,
       data: null,
+    };
+  }
+};
+
+export const logout = async (): Promise<ResponseData> => {
+  try {
+    const res = await signOut(firebaseAuth);
+    return {
+      success: true,
+      error: null,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
     };
   }
 };
