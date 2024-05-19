@@ -5,7 +5,7 @@ import {
   ListIcon,
   LoginIcon,
   MenuIcon,
-  UserIcon,
+  UserCircleIcon,
 } from "../assets/Icons";
 import { useUserStore } from "../stores/store";
 import { User } from "../@types/schemaType";
@@ -73,7 +73,7 @@ const Navbar: React.FC<Props> = () => {
               onClick={() => setIsAuthMenuActive(!isAuthMenuActive)}
             >
               <ListIcon color="#7a7a7a" size={25} strokeWidth={1.4} />
-              <UserIcon color="#7a7a7a" size={30} />
+              <UserCircleIcon color="#7a7a7a" size={30} />
             </div>
             {isAuthMenuActive && (
               <div

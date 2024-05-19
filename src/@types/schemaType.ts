@@ -14,7 +14,7 @@ export interface User {
 export interface Owner {
   ownerid: string;
   uid: string;
-  phoneNumber?: string;
+  phoneNumber: string;
   company?: string;
   avatarUrl?: string;
   properties: {

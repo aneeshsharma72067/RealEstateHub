@@ -40,12 +40,13 @@ const Login: React.FC = () => {
     if (response.success && response.data) {
       toast.success("Logged in successfully");
       setUser(response.data);
-      setLoading(false);
       navigate("/");
-    } else {
-      setLoading(false);
+    } else if (response.error) {
       toast.error(response.error);
+    } else {
+      toast.error("Something Went Wrong");
     }
+    setLoading(false);
   };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
