@@ -6,6 +6,8 @@ import HouseStock1 from "/images/house-stock-1.jpg";
 import HouseStock2 from "/images/house-stock-2.jpg";
 import PlotStock1 from "/images/plot-stock-1.jpg";
 import PlotStock2 from "/images/plot-stock-2.jpg";
+import Logo from "/images/logo.png";
+
 export {
   BuyHouses,
   RentHouses,
@@ -15,4 +17,5 @@ export {
   HouseStock2,
   PlotStock1,
   PlotStock2,
+  Logo,
 };

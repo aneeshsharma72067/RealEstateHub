@@ -1,12 +1,14 @@
 import {
   addDoc,
   collection,
+  doc,
   getDocs,
   query,
   serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
-import { firebaseAuth, firestore } from "./config";
+import { firebaseAuth, firestore, firestoreCollections } from "./config";
 import {
   UserCredential,
   signInWithEmailAndPassword,
@@ -14,9 +16,14 @@ import {
 } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { User } from "../../@types/schemaType";
-import { LoginFormData, SignUpFormData } from "../../@types/formTypes";
+import { Owner, User } from "../../@types/schemaType";
+import {
+  LoginFormData,
+  OwnerFormData,
+  SignUpFormData,
+} from "../../@types/formTypes";
 import { ResponseData } from "../../@types/returnTypes";
+import { v4 as uuid4 } from "uuid";
 
 //signup
 export const signup = async (
@@ -41,7 +48,10 @@ export const signup = async (
       created_at: serverTimestamp(),
     };
 
-    const result = await addDoc(collection(firestore, "users"), user);
+    const result = await addDoc(
+      collection(firestore, firestoreCollections.USERS),
+      user
+    );
 
     return {
       success: true,
@@ -70,7 +80,10 @@ export const login = async (
       password
     );
     const userSnapshot = await getDocs(
-      query(collection(firestore, "users"), where("email", "==", email))
+      query(
+        collection(firestore, firestoreCollections.USERS),
+        where("email", "==", email)
+      )
     );
 
     const userData = userSnapshot.docs[0].data();
@@ -109,7 +122,10 @@ export const logout = async (): Promise<ResponseData> => {
 export const getUserData = async (uid: string): Promise<ResponseData<User>> => {
   try {
     const userSnapshot = await getDocs(
-      query(collection(firestore, "users"), where("uid", "==", uid))
+      query(
+        collection(firestore, firestoreCollections.USERS),
+        where("uid", "==", uid)
+      )
     );
     if (userSnapshot.empty) {
       throw Error("User does not exist's !!");
@@ -117,6 +133,57 @@ export const getUserData = async (uid: string): Promise<ResponseData<User>> => {
     return {
       success: true,
       data: userSnapshot.docs[0].data() as User,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const createOwner = async (
+  uid: string,
+  ownerData: OwnerFormData
+): Promise<ResponseData<Owner>> => {
+  try {
+    const newOwnerId: string = uuid4();
+
+    const owner: Owner = {
+      uid: uid,
+      ownerid: newOwnerId,
+      phoneNumber: ownerData.phone,
+      properties: {
+        houses: [],
+        pg: [],
+        plots: [],
+        rental: [],
+      },
+      // avatarUrl: ownerData.avatarUrl,
+      company: ownerData.company,
+    };
+
+    const newOwner = await addDoc(
+      collection(firestore, firestoreCollections.OWNERS),
+      owner
+    );
+
+    const querySnapshot = await getDocs(
+      query(
+        collection(firestore, firestoreCollections.USERS),
+        where("uid", "==", uid)
+      )
+    );
+    querySnapshot.forEach(async (item) => {
+      const userRef = doc(firestore, firestoreCollections.USERS, item.id);
+      await updateDoc(userRef, {
+        ownerid: newOwnerId,
+      });
+    });
+    return {
+      success: true,
+      data: owner,
     };
   } catch (err) {
     const errorMessage = (err as FirebaseError).message;

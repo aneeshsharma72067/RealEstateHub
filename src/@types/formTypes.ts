@@ -11,5 +11,5 @@ export interface LoginFormData {
 export interface OwnerFormData {
   phone: string;
   company?: string;
-  avatarUrl?: string;
+  avatar?: File | null;
 }

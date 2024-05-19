@@ -16,11 +16,22 @@ const OwnerOnboarding: React.FC<Props> = () => {
   const user = useUserStore((state) => state.currentUser);
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [tempURL, setTempURL] = useState<string | null>(null);
   const [ownerFormData, setOwnerFormData] = useState<OwnerFormData>({
     phone: "",
-    avatarUrl: "",
+    avatar: null,
     company: "",
   });
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImage = e.target.files && e.target.files[0];
+    setOwnerFormData({
+      ...ownerFormData,
+      avatar: selectedImage,
+    });
+    const tempUrl = URL.createObjectURL(selectedImage as Blob);
+    setTempURL(tempUrl);
+  };
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -47,7 +58,15 @@ const OwnerOnboarding: React.FC<Props> = () => {
             <div className="flex flex-col w-3/5 mx-auto my-12 gap-4">
               <div className="w-full flex items-center justify-center">
                 <label htmlFor="avatar" className="relative w-max h-max">
-                  <UserCircleIcon size={100} color="#333" />
+                  {tempURL ? (
+                    <img
+                      src={tempURL}
+                      alt=""
+                      className="w-28 h-28 rounded-full"
+                    />
+                  ) : (
+                    <UserCircleIcon size={100} color="#333" />
+                  )}
                   <span className="absolute bg-green-400 rounded-full p-[6px] border-2 border-white right-0 bottom-0">
                     <EditIcon size={18} color="white" />
                   </span>
@@ -58,6 +77,7 @@ const OwnerOnboarding: React.FC<Props> = () => {
                   id="avatar"
                   accept=".jpg, .png, .jpeg"
                   className="hidden"
+                  onChange={handleFileChange}
                 />
               </div>
               <div className="w-full flex gap-1 items-center bg-white rounded-md px-4">

@@ -11,6 +11,7 @@ import { useUserStore } from "../stores/store";
 import { User } from "../@types/schemaType";
 import { logout } from "../services/firebase/firebaseFunctions";
 import toast from "react-hot-toast";
+import { Logo } from "../assets/Images";
 
 type Props = {};
 
@@ -47,8 +48,10 @@ const Navbar: React.FC<Props> = () => {
         }`}
       >
         <div className="flex flex-col md:flex-row md:items-center px-16 h-screen md:h-max justify-normal md:justify-between text-lg md:text-[0.9rem] py-8 md:p-0 duration-300 text-slate-700 font-medium bg-orange-100 md:bg-transparent w-4/5 md:w-full gap-10 shadow-[-3px_5px_17px_0px_#a0aec0] md:shadow-none">
-          <div className="w-1/3">
-            <div>Logo</div>
+          <div className="w-1/3 flex items-center justify-center">
+            <div>
+              <img src={Logo} alt="" className="w-20" />
+            </div>
           </div>
           <nav className="md:w-full">
             <ul className="flex flex-col md:flex-row md:items-center justify-center gap-10">

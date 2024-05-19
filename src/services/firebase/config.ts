@@ -25,4 +25,13 @@ const firebaseAuth = getAuth(firebaseApp);
 const firestore = getFirestore();
 const storage = getStorage(firebaseApp);
 
-export { firebaseApp, firebaseAuth, firestore, storage };
+const firestoreCollections = {
+  USERS: "users",
+  OWNERS: "owners",
+  HOUSES: "houses",
+  PLOTS: "plots",
+  PG: "pg",
+  RENTALS: "rentals",
+};
+
+export { firebaseApp, firebaseAuth, firestore, storage, firestoreCollections };
