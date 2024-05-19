@@ -105,3 +105,24 @@ export const logout = async (): Promise<ResponseData> => {
     };
   }
 };
+
+export const getUserData = async (uid: string): Promise<ResponseData<User>> => {
+  try {
+    const userSnapshot = await getDocs(
+      query(collection(firestore, "users"), where("uid", "==", uid))
+    );
+    if (userSnapshot.empty) {
+      throw Error("User does not exist's !!");
+    }
+    return {
+      success: true,
+      data: userSnapshot.docs[0].data() as User,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
