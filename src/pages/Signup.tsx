@@ -50,8 +50,10 @@ const Signup: React.FC = () => {
       if (response.data) {
         setUser(response.data);
       }
-    } else {
+    } else if (response.error) {
       toast.error(response.error);
+    } else {
+      toast.error("Something went wrong !!");
     }
     setLoading(false);
     if (signupType === "owner") {
@@ -69,6 +71,9 @@ const Signup: React.FC = () => {
       [e.target.name]: e.target.value,
     });
   };
+  if (user && signupType == "owner") {
+    return <Navigate to={"/owner-onboarding"} />;
+  }
   if (user) {
     return <Navigate to={"/"} />;
   }

@@ -119,13 +119,3 @@ interface Plot {
   amenities: string[];
   images?: string[];
 }
-
-namespace Forms{
-  export interface SignUpFormData {
-    email: string;
-    password: string
-  }
-}
-
-
-

@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-import OwnerDashboard from "./pages/OwnerDashboard";
+import OwnerDashboard from "./pages/Owner/OwnerDashboard";
 import PG from "./pages/PG";
 import HousesForRent from "./pages/HousesForRent";
 import Properties from "./pages/Properties";
@@ -18,6 +18,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "./services/firebase/config";
 import { getUserData } from "./services/firebase/firebaseFunctions";
 import { useUserStore } from "./stores/store";
+import OwnerOnboarding from "./pages/Owner/OwnerOnboarding";
 
 function App() {
   const setUser = useUserStore((state) => state.updateUser);
@@ -69,6 +70,7 @@ function App() {
             <Route path="/auth/signup" element={<Signup />} />
             <Route path="/owner-dashboard" element={<OwnerDashboard />} />
             <Route path="/price-trends" element={<PriceTrends />} />
+            <Route path="/owner-onboarding" element={<OwnerOnboarding />} />
           </Routes>
         </div>
       )}
