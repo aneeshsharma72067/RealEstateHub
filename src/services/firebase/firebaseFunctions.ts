@@ -8,7 +8,13 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { firebaseAuth, firestore, firestoreCollections } from "./config";
+import {
+  firebaseAuth,
+  firebaseStorage,
+  firestore,
+  firestoreCollections,
+  storage,
+} from "./config";
 import {
   UserCredential,
   signInWithEmailAndPassword,
@@ -24,6 +30,7 @@ import {
 } from "../../@types/formTypes";
 import { ResponseData } from "../../@types/returnTypes";
 import { v4 as uuid4 } from "uuid";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 //signup
 export const signup = async (
@@ -148,6 +155,19 @@ export const createOwner = async (
   ownerData: OwnerFormData
 ): Promise<ResponseData<Owner>> => {
   try {
+    let imageUrl: string = "";
+    if (ownerData.avatar) {
+      const storageRef = ref(
+        storage,
+        firebaseStorage.AVATAR(ownerData.avatar.name)
+      );
+      const imageSnapshot = await uploadBytes(
+        storageRef,
+        ownerData.avatar as Blob
+      );
+      imageUrl = await getDownloadURL(imageSnapshot.ref);
+    }
+
     const newOwnerId: string = uuid4();
 
     const owner: Owner = {
@@ -160,7 +180,7 @@ export const createOwner = async (
         plots: [],
         rental: [],
       },
-      // avatarUrl: ownerData.avatarUrl,
+      avatarUrl: imageUrl,
       company: ownerData.company,
     };
 
@@ -184,6 +204,32 @@ export const createOwner = async (
     return {
       success: true,
       data: owner,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const getOwnerData = async (
+  ownerid: string
+): Promise<ResponseData<Owner>> => {
+  try {
+    const userSnapshot = await getDocs(
+      query(
+        collection(firestore, firestoreCollections.OWNERS),
+        where("ownerid", "==", ownerid)
+      )
+    );
+    if (userSnapshot.empty) {
+      throw Error("You are not an owner !!");
+    }
+    return {
+      success: true,
+      data: userSnapshot.docs[0].data() as Owner,
     };
   } catch (err) {
     const errorMessage = (err as FirebaseError).message;

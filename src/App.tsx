@@ -5,7 +5,6 @@ import toast, { Toaster } from "react-hot-toast";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-import OwnerDashboard from "./pages/Owner/OwnerDashboard";
 import PG from "./pages/PG";
 import HousesForRent from "./pages/HousesForRent";
 import Properties from "./pages/Properties";
@@ -19,9 +18,11 @@ import { firebaseAuth } from "./services/firebase/config";
 import { getUserData } from "./services/firebase/firebaseFunctions";
 import { useUserStore } from "./stores/store";
 import OwnerOnboarding from "./pages/Owner/OwnerOnboarding";
+import Owner from "./pages/Owner/Owner";
 
 function App() {
   const setUser = useUserStore((state) => state.updateUser);
+
   const [isUserLoading, setIsUserLoading] = useState(true);
 
   useEffect(() => {
@@ -30,6 +31,7 @@ function App() {
       if (user) {
         console.log("user is logged in", user);
         const res = await getUserData(user.uid);
+        
         if (res.success && res.data) {
           setUser(res.data);
           toast.success(`Welcome back ${res.data.username || res.data.email}`);
@@ -68,7 +70,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
-            <Route path="/owner-dashboard" element={<OwnerDashboard />} />
+            <Route path="/owner-dashboard" element={<Owner />} />
             <Route path="/price-trends" element={<PriceTrends />} />
             <Route path="/owner-onboarding" element={<OwnerOnboarding />} />
           </Routes>

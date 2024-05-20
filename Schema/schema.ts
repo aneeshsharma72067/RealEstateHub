@@ -10,6 +10,17 @@ interface User {
   ownerid?: string;
 }
 
+interface Address {
+  city: string;
+  state: string;
+  landmark: string;
+  postalCode: number;
+  latitude: number;
+  longitude: number;
+  address1?: string;
+  address2?: string;
+}
+
 interface Owner {
   ownerid: string;
   uid: string;
@@ -33,14 +44,7 @@ interface Houses {
     bathrooms: number;
   };
   price: number;
-  address: {
-    city: string;
-    state: string;
-    landmark: string;
-    postalCode: number;
-    latitude: number;
-    longitude: number;
-  };
+  address: Address;
   floors: number;
   amenities: string[];
   owner: Owner;
@@ -64,14 +68,7 @@ interface PG {
   is_active: boolean;
   has_food_included: boolean;
   rent_per_room: number;
-  address: {
-    city: string;
-    state: string;
-    landmark: string;
-    postalCode: number;
-    latitude: number;
-    longitude: number;
-  };
+  address: Address;
   owner: Owner;
   amenities: string[];
   images?: string[];
@@ -88,14 +85,7 @@ interface Rental {
   num_bedrooms: number;
   num_bathrooms: number;
   rent_per_month: number;
-  address: {
-    city: string;
-    state: string;
-    landmark: string;
-    postalCode: number;
-    latitude: number;
-    longitude: number;
-  };
+  address: Address;
   distance_to_market: number;
   images?: string[];
   amenities: string[];
@@ -104,14 +94,7 @@ interface Rental {
 
 interface Plot {
   plot_id: string;
-  address: {
-    city: string;
-    state: string;
-    landmark: string;
-    postalCode: number;
-    latitude: number;
-    longitude: number;
-  };
+  address: Address;
   area: number;
   description: string;
   price: number;

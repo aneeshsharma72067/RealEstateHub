@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useUserStore } from "../../stores/store";
-import { Navigate } from "react-router-dom";
+import { useOwnerStore, useUserStore } from "../../stores/store";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
   CallIcon,
   EditIcon,
@@ -9,11 +9,15 @@ import {
 } from "../../assets/Icons";
 import { OwnerFormData } from "../../@types/formTypes";
 import { Button } from "../../components/Button";
+import { createOwner } from "../../services/firebase/firebaseFunctions";
+import toast from "react-hot-toast";
 
 type Props = {};
 
 const OwnerOnboarding: React.FC<Props> = () => {
   const user = useUserStore((state) => state.currentUser);
+
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [tempURL, setTempURL] = useState<string | null>(null);
@@ -42,9 +46,27 @@ const OwnerOnboarding: React.FC<Props> = () => {
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    if (ownerFormData.phone === "" || ownerFormData.phone.length != 10) {
+      toast.error("Please enter a valid phone number !!");
+      return;
+    }
+    if (user) {
+      setLoading(true);
+      const response = await createOwner(user.uid, ownerFormData);
+      if (response.success) {
+        toast.success("You are now an owner ✨");
+        navigate("/owner-dashboard");
+      } else if (response.error) {
+        toast.error(response.error);
+      } else {
+        toast.error("Something went wrong !!");
+      }
+      setLoading(false);
+    }
+  };
 
-  if (user?.ownerid) {
+  if (user?.ownerid || !user) {
     return <Navigate to={"/owner-dashboard"} />;
   }
   return (

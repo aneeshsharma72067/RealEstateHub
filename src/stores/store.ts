@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { User } from "../@types/schemaType";
+import { Owner, User } from "../@types/schemaType";
 
 type UserStore = {
   currentUser: User | null;
@@ -8,9 +8,19 @@ type UserStore = {
   logoutUser: () => void;
 };
 
+type OwnerStore = {
+  currentOwner: Owner | null;
+  setOwner: (owner: Owner) => void;
+};
+
 export const useUserStore = create<UserStore>((set) => ({
   currentUser: null,
   userDataIsLoading: true,
-  updateUser: (user: User) => set((state) => ({ currentUser: user })),
-  logoutUser: () => set((state) => ({ currentUser: null })),
+  updateUser: (user: User) => set(() => ({ currentUser: user })),
+  logoutUser: () => set(() => ({ currentUser: null })),
+}));
+
+export const useOwnerStore = create<OwnerStore>((set) => ({
+  currentOwner: null,
+  setOwner: (owner: Owner) => set(() => ({ currentOwner: owner })),
 }));

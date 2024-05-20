@@ -34,4 +34,10 @@ const firestoreCollections = {
   RENTALS: "rentals",
 };
 
+export const firebaseStorage = {
+  AVATAR: (imageName: string): string => {
+    return `avatars/${imageName}`;
+  },
+};
+
 export { firebaseApp, firebaseAuth, firestore, storage, firestoreCollections };
