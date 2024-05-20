@@ -22,7 +22,7 @@ import {
 } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
-import { Owner, User } from "../../@types/schemaType";
+import { House, Owner, PG, Plot, Rental, User } from "../../@types/schemaType";
 import {
   LoginFormData,
   OwnerFormData,
@@ -230,6 +230,182 @@ export const getOwnerData = async (
     return {
       success: true,
       data: userSnapshot.docs[0].data() as Owner,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const fetchAllHouses = async (): Promise<ResponseData<House[]>> => {
+  try {
+    const response = await getDocs(
+      collection(firestore, firestoreCollections.HOUSES)
+    );
+    const houses: House[] = response.docs.map((doc) => doc.data()) as House[];
+    return {
+      success: true,
+      data: houses,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const fetchAllPG = async (): Promise<ResponseData<PG[]>> => {
+  try {
+    const response = await getDocs(
+      collection(firestore, firestoreCollections.PG)
+    );
+    const pgs: PG[] = response.docs.map((doc) => doc.data()) as PG[];
+    return {
+      success: true,
+      data: pgs,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const fetchAllRentals = async (): Promise<ResponseData<Rental[]>> => {
+  try {
+    const response = await getDocs(
+      collection(firestore, firestoreCollections.RENTALS)
+    );
+    const rentals: Rental[] = response.docs.map((doc) =>
+      doc.data()
+    ) as Rental[];
+    return {
+      success: true,
+      data: rentals,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const fetchAllPlots = async (): Promise<ResponseData<Plot[]>> => {
+  try {
+    const response = await getDocs(
+      collection(firestore, firestoreCollections.PLOTS)
+    );
+    const plots: Plot[] = response.docs.map((doc) => doc.data()) as Plot[];
+    return {
+      success: true,
+      data: plots,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const fetchHousesByOwnerId = async (
+  ownerid: string
+): Promise<ResponseData<House[]>> => {
+  try {
+    const response = await getDocs(
+      query(
+        collection(firestore, firestoreCollections.HOUSES),
+        where("ownerid", "==", ownerid)
+      )
+    );
+    const houses: House[] = response.docs.map((doc) => doc.data()) as House[];
+    return {
+      success: true,
+      data: houses,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const fetchPGByOwnerId = async (
+  ownerid: string
+): Promise<ResponseData<PG[]>> => {
+  try {
+    const response = await getDocs(
+      query(
+        collection(firestore, firestoreCollections.PG),
+        where("ownerid", "==", ownerid)
+      )
+    );
+    const pgs: PG[] = response.docs.map((doc) => doc.data()) as PG[];
+    return {
+      success: true,
+      data: pgs,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const fetchRentalsByOwnerId = async (
+  ownerid: string
+): Promise<ResponseData<Rental[]>> => {
+  try {
+    const response = await getDocs(
+      query(
+        collection(firestore, firestoreCollections.RENTALS),
+        where("ownerid", "==", ownerid)
+      )
+    );
+    const rentals: Rental[] = response.docs.map((doc) =>
+      doc.data()
+    ) as Rental[];
+    return {
+      success: true,
+      data: rentals,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const fetchPlotsByOwnerId = async (
+  ownerid: string
+): Promise<ResponseData<Plot[]>> => {
+  try {
+    const response = await getDocs(
+      query(
+        collection(firestore, firestoreCollections.PLOTS),
+        where("ownerid", "==", ownerid)
+      )
+    );
+    const plots: Plot[] = response.docs.map((doc) => doc.data()) as Plot[];
+    return {
+      success: true,
+      data: plots,
     };
   } catch (err) {
     const errorMessage = (err as FirebaseError).message;

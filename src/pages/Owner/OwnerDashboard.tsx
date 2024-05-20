@@ -14,7 +14,7 @@ const OwnerDashboard: React.FC<Props> = ({ ownerid }) => {
   const setOwner = useOwnerStore((state) => state.setOwner);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchOwner = async () => {
       const res = await getOwnerData(ownerid);
       if (res.success && res.data) {
         setOwner(res.data);
@@ -24,7 +24,7 @@ const OwnerDashboard: React.FC<Props> = ({ ownerid }) => {
         toast.error("Something went wrong");
       }
     };
-    fetchUser();
+    fetchOwner();
     return () => {};
   }, []);
 

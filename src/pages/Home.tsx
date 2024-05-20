@@ -15,7 +15,7 @@ const Home: React.FC<Props> = () => {
           </h1>
         </div>
         <div className="w-4/5 mx-auto grid gap-10 grid-rows-1 md:grid-cols-4">
-          <NavLink to={"/property-and-land"} className="flex flex-col gap-2">
+          <NavLink to={"/property-and-houses"} className="flex flex-col gap-2">
             <div className="w-full rounded-lg overflow-hidden">
               <img
                 src={BuyHouses}

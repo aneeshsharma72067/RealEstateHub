@@ -5,7 +5,6 @@ import toast, { Toaster } from "react-hot-toast";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-import PG from "./pages/PG";
 import HousesForRent from "./pages/HousesForRent";
 import Properties from "./pages/Properties";
 import Layout from "./pages/Layout";
@@ -23,6 +22,7 @@ import OwnerHouses from "./pages/Owner/Properties/OwnerHouses";
 import OwnerPG from "./pages/Owner/Properties/OwnerPG";
 import OwnerRentals from "./pages/Owner/Properties/OwnerRentals";
 import OwnerPlots from "./pages/Owner/Properties/OwnerPlots";
+import PGs from "./pages/PGs";
 
 function App() {
   const setUser = useUserStore((state) => state.updateUser);
@@ -66,9 +66,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/property-and-land" element={<Properties />} />
+              <Route path="/property-and-houses" element={<Properties />} />
               <Route path="/houses-for-rent" element={<HousesForRent />} />
-              <Route path="/pg-houses" element={<PG />} />
+              <Route path="/pg-houses" element={<PGs />} />
               <Route path="/buy-plot" element={<Plots />} />
             </Route>
             <Route path="/search" element={<Search />} />

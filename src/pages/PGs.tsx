@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Rental } from "../../../@types/schemaType";
-import { fetchRentalsByOwnerId } from "../../../services/firebase/firebaseFunctions";
-import { useOwnerStore } from "../../../stores/store";
 import toast from "react-hot-toast";
+import { fetchAllPG } from "../services/firebase/firebaseFunctions";
+import { PG } from "../@types/schemaType";
 
 type Props = {};
 
-const OwnerRentals: React.FC<Props> = () => {
-  const owner = useOwnerStore((state) => state.currentOwner);
-  const [rentals, setRentals] = useState<Rental[]>([]);
+const PGs: React.FC<Props> = () => {
+  const [pg, setPg] = useState<PG[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
-    const getrentalsdata = async () => {
+    const getpgdata = async () => {
       setLoading(true);
-      const res = await fetchRentalsByOwnerId(owner?.ownerid || "");
+      const res = await fetchAllPG();
       if (res.success && res.data) {
-        setRentals(res.data);
+        setPg(res.data);
       } else if (res.error) {
         toast.error(res.error);
       } else {
@@ -24,14 +22,14 @@ const OwnerRentals: React.FC<Props> = () => {
       console.log("loaded");
       setLoading(false);
     };
-    getrentalsdata();
+    getpgdata();
     return () => {};
   }, []);
 
   return (
     <main className="w-full">
-      <div className="w-full flex flex-col gap-5">
-        <h1 className="text-3xl font-bold text-slate-700">Rentals</h1>
+      <div className="w-4/5 mx-auto flex flex-col gap-5">
+        <h1 className="text-3xl font-bold text-slate-700">PG's</h1>
         <div>
           {loading ? (
             <div className="flex w-full gap-4 items-center">
@@ -40,18 +38,15 @@ const OwnerRentals: React.FC<Props> = () => {
               <div className="flex-1 h-32 rounded-md bg-gradient-to-br from-slate-400 to-slate-300 animate-pulse"></div>
               <div className="flex-1 h-32 rounded-md bg-gradient-to-br from-slate-400 to-slate-300 animate-pulse"></div>
             </div>
-          ) : rentals.length ? (
+          ) : pg.length ? (
             <div>
-              <div className="h-32 max-w-60 rounded-lg flex items-center justify-center bg-orange-400">
-                Add Rental
-              </div>
-              {rentals.map((rental) => {
-                return <div>{rental.ownerid}</div>;
+              {pg.map((item) => {
+                return <div>{item.ownerid}</div>;
               })}
             </div>
           ) : (
             <div className="flex items-center justify-center text-slate-600 font-medium text-xl">
-              <p>No Rentals Added</p>
+              <p>No PG's found</p>
             </div>
           )}
         </div>
@@ -60,4 +55,4 @@ const OwnerRentals: React.FC<Props> = () => {
   );
 };
 
-export default OwnerRentals;
+export default PGs;

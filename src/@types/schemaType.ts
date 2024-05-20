@@ -36,7 +36,7 @@ export interface Address {
   address2?: string;
 }
 
-export interface Houses {
+export interface House {
   house_id: string;
   bhk: {
     bedroom: number;
@@ -48,7 +48,7 @@ export interface Houses {
   address: Address;
   floors: number;
   amenities: string[];
-  owner: Owner;
+  ownerid: string;
   square_footage: number;
   parking_spaces: number;
   created_at: Date;
@@ -70,7 +70,7 @@ export interface PG {
   has_food_included: boolean;
   rent_per_room: number;
   address: Address;
-  owner: Owner;
+  ownerid: string;
   amenities: string[];
   images?: string[];
   distance_to_market: number;
@@ -90,7 +90,7 @@ export interface Rental {
   distance_to_market: number;
   images?: string[];
   amenities: string[];
-  owner: Owner;
+  ownerid: string;
 }
 
 export interface Plot {
