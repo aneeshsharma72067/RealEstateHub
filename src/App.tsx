@@ -19,6 +19,10 @@ import { getUserData } from "./services/firebase/firebaseFunctions";
 import { useUserStore } from "./stores/store";
 import OwnerOnboarding from "./pages/Owner/OwnerOnboarding";
 import Owner from "./pages/Owner/Owner";
+import OwnerHouses from "./pages/Owner/Properties/OwnerHouses";
+import OwnerPG from "./pages/Owner/Properties/OwnerPG";
+import OwnerRentals from "./pages/Owner/Properties/OwnerRentals";
+import OwnerPlots from "./pages/Owner/Properties/OwnerPlots";
 
 function App() {
   const setUser = useUserStore((state) => state.updateUser);
@@ -70,7 +74,12 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
-            <Route path="/owner-dashboard" element={<Owner />} />
+            <Route path="/owner-dashboard" element={<Owner />} >
+              <Route path="/owner-dashboard/properties/houses" element={<OwnerHouses/>} />
+              <Route path="/owner-dashboard/properties/plots" element={<OwnerPlots/>} />
+              <Route path="/owner-dashboard/properties/rentals" element={<OwnerRentals/>} />
+              <Route path="/owner-dashboard/properties/pg" element={<OwnerPG/>} />
+            </Route>
             <Route path="/price-trends" element={<PriceTrends />} />
             <Route path="/owner-onboarding" element={<OwnerOnboarding />} />
           </Routes>

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { getOwnerData } from "../../services/firebase/firebaseFunctions";
 import { useOwnerStore, useUserStore } from "../../stores/store";
 import toast from "react-hot-toast";
+import { NavLink, Outlet } from "react-router-dom";
 
 type Props = {
   ownerid: string;
@@ -29,7 +30,7 @@ const OwnerDashboard: React.FC<Props> = ({ ownerid }) => {
 
   return (
     <section className="w-full">
-      <div className="w-4/5 mx-auto my-6 flex flex-col gap-5">
+      <div className="w-4/5 mx-auto my-6 flex flex-col gap-10">
         <div className="flex w-full gap-6">
           <div className="flex-[0.4] bg-gradient-to-br from-orange-600 to-orange-200 rounded-xl py-10 px-8">
             <h1 className="font-bold flex flex-col gap-2">
@@ -46,6 +47,55 @@ const OwnerDashboard: React.FC<Props> = ({ ownerid }) => {
               <div>Rentals: 0</div>
               <div>PG: 0</div>
             </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-5">
+          <h2 className="font-bold text-3xl text-slate-700">Your Properties</h2>
+
+          <div className="flex w-full justify-around text-2xl my-4 border-4 border-orange-400 rounded-3xl py-3 border-double">
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "py-3 px-10 rounded-xl duration-300 hover:bg-orange-400 bg-orange-400 text-white"
+                  : "py-3 px-10 rounded-xl duration-300 hover:bg-orange-200"
+              }
+              to={"/owner-dashboard/properties/houses"}
+            >
+              House
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "py-3 px-10 rounded-xl duration-300 hover:bg-orange-400 bg-orange-400 text-white"
+                  : "py-3 px-10 rounded-xl duration-300 hover:bg-orange-200"
+              }
+              to={"/owner-dashboard/properties/rentals"}
+            >
+              Rentals
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "py-3 px-10 rounded-xl duration-300 hover:bg-orange-400 bg-orange-400 text-white"
+                  : "py-3 px-10 rounded-xl duration-300 hover:bg-orange-200"
+              }
+              to={"/owner-dashboard/properties/pg"}
+            >
+              PG
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "py-3 px-10 rounded-xl duration-300 hover:bg-orange-400 bg-orange-400 text-white"
+                  : "py-3 px-10 rounded-xl duration-300 hover:bg-orange-200"
+              }
+              to={"/owner-dashboard/properties/plots"}
+            >
+              Plot
+            </NavLink>
+          </div>
+          <div>
+            <Outlet />
           </div>
         </div>
       </div>
