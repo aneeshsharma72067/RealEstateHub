@@ -23,6 +23,7 @@ import OwnerPG from "./pages/Owner/Properties/OwnerPG";
 import OwnerRentals from "./pages/Owner/Properties/OwnerRentals";
 import OwnerPlots from "./pages/Owner/Properties/OwnerPlots";
 import PGs from "./pages/PGs";
+import AddHouse from "./pages/Owner/Properties/AddHouse";
 
 function App() {
   const setUser = useUserStore((state) => state.updateUser);
@@ -35,7 +36,7 @@ function App() {
       if (user) {
         console.log("user is logged in", user);
         const res = await getUserData(user.uid);
-        
+
         if (res.success && res.data) {
           setUser(res.data);
           toast.success(`Welcome back ${res.data.username || res.data.email}`);
@@ -74,12 +75,28 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />
-            <Route path="/owner-dashboard" element={<Owner />} >
-              <Route path="/owner-dashboard/properties/houses" element={<OwnerHouses/>} />
-              <Route path="/owner-dashboard/properties/plots" element={<OwnerPlots/>} />
-              <Route path="/owner-dashboard/properties/rentals" element={<OwnerRentals/>} />
-              <Route path="/owner-dashboard/properties/pg" element={<OwnerPG/>} />
+            <Route path="/owner-dashboard" element={<Owner />}>
+              <Route
+                path="/owner-dashboard/properties/houses"
+                element={<OwnerHouses />}
+              />
+              <Route
+                path="/owner-dashboard/properties/plots"
+                element={<OwnerPlots />}
+              />
+              <Route
+                path="/owner-dashboard/properties/rentals"
+                element={<OwnerRentals />}
+              />
+              <Route
+                path="/owner-dashboard/properties/pg"
+                element={<OwnerPG />}
+              />
             </Route>
+            <Route
+              path="/owner-dashboard/properties/houses/add"
+              element={<AddHouse />}
+            />
             <Route path="/price-trends" element={<PriceTrends />} />
             <Route path="/owner-onboarding" element={<OwnerOnboarding />} />
           </Routes>
