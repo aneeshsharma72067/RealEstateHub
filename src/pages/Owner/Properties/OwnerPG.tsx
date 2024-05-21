@@ -6,6 +6,8 @@ import {
 } from "../../../services/firebase/firebaseFunctions";
 import { useOwnerStore } from "../../../stores/store";
 import toast from "react-hot-toast";
+import { AddIcon } from "../../../assets/Icons";
+import { NavLink } from "react-router-dom";
 
 type Props = {};
 
@@ -53,8 +55,15 @@ const OwnerPG: React.FC<Props> = () => {
               })}
             </div>
           ) : (
-            <div className="flex items-center justify-center text-slate-600 font-medium text-xl">
+            <div className="flex items-center justify-center gap-3 text-slate-600 font-medium text-xl">
               <p>No PG's Added</p>
+              <NavLink
+                to="/owner-dashboard/properties/pg/add"
+                className="flex items-center justify-center gap-3 px-4 py-2 rounded-lg bg-orange-400"
+              >
+                <AddIcon color="white" />
+                <span className="text-white">Add</span>
+              </NavLink>
             </div>
           )}
         </div>

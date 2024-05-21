@@ -38,6 +38,9 @@ export const firebaseStorage = {
   AVATAR: (imageName: string): string => {
     return `avatars/${imageName}`;
   },
+  HOUSE: (imageName: string): string => {
+    return `house/${imageName}`;
+  },
 };
 
 export { firebaseApp, firebaseAuth, firestore, storage, firestoreCollections };

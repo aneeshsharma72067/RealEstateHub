@@ -24,6 +24,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FirebaseError } from "firebase/app";
 import { House, Owner, PG, Plot, Rental, User } from "../../@types/schemaType";
 import {
+  HouseFormData,
   LoginFormData,
   OwnerFormData,
   SignUpFormData,
@@ -406,6 +407,92 @@ export const fetchPlotsByOwnerId = async (
     return {
       success: true,
       data: plots,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const addHouse = async (houseData: HouseFormData) => {
+  let imageURL: string = "";
+  try {
+    if (houseData.image) {
+      const storageRef = ref(
+        storage,
+        firebaseStorage.HOUSE(houseData.image.name)
+      );
+      const imageSnapshot = await uploadBytes(
+        storageRef,
+        houseData.image as Blob
+      );
+      imageURL = await getDownloadURL(imageSnapshot.ref);
+    }
+
+    const newHouseId = uuid4();
+    const house: House = {
+      house_id: newHouseId,
+      title: houseData.title,
+      address: {
+        city: houseData.city,
+        landmark: houseData.landmark,
+        postalCode: Number(houseData.zipcode),
+        latitude: 0,
+        longitude: 0,
+        state: houseData.state,
+        address1: houseData.address1,
+      },
+      amenities: [],
+      bhk: {
+        bathrooms: houseData.bathroom,
+        bedroom: houseData.bedroom,
+        hall: houseData.hall,
+        kitchen: houseData.kitchen,
+      },
+      description: houseData.description,
+      floors: houseData.floors,
+      has_garage: houseData.has_garage,
+      is_furnished: houseData.is_furnished,
+      has_pool: houseData.has_pool,
+      distance_to_market: 0,
+      ownerid: houseData.ownerid,
+      parking_spaces: houseData.parking_spaces,
+      price: houseData.price,
+      imageUrl: imageURL,
+      square_footage: houseData.square_footage,
+      created_at: serverTimestamp(),
+    };
+    const newHouse = await addDoc(
+      collection(firestore, firestoreCollections.HOUSES),
+      house
+    );
+    return {
+      success: true,
+      data: newHouse,
+    };
+  } catch (err) {
+    const errorMessage = (err as FirebaseError).message;
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+};
+
+export const getHouseData = async (houseid: string) => {
+  try {
+    const houseSnapShot = await getDocs(
+      query(
+        collection(firestore, firestoreCollections.HOUSES),
+        where("house_id", "==", houseid)
+      )
+    );
+    return {
+      success: true,
+      data: houseSnapShot.docs[0].data(),
     };
   } catch (err) {
     const errorMessage = (err as FirebaseError).message;

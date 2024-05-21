@@ -24,6 +24,7 @@ import OwnerRentals from "./pages/Owner/Properties/OwnerRentals";
 import OwnerPlots from "./pages/Owner/Properties/OwnerPlots";
 import PGs from "./pages/PGs";
 import AddHouse from "./pages/Owner/Properties/AddHouse";
+import HouseDetails from "./pages/HouseDetails";
 
 function App() {
   const setUser = useUserStore((state) => state.updateUser);
@@ -72,6 +73,10 @@ function App() {
               <Route path="/pg-houses" element={<PGs />} />
               <Route path="/buy-plot" element={<Plots />} />
             </Route>
+            <Route
+              path="/property-and-houses/:houseid"
+              element={<HouseDetails />}
+            />
             <Route path="/search" element={<Search />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/signup" element={<Signup />} />

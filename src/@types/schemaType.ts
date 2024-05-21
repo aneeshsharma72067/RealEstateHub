@@ -37,26 +37,28 @@ export interface Address {
 }
 
 export interface House {
-  house_id: string;
+  house_id: string; // done
+  title: string;
   bhk: {
+    // done
     bedroom: number;
     hall: number;
     kitchen: number;
     bathrooms: number;
   };
-  price: number;
+  price: number; // done
   address: Address;
   floors: number;
   amenities: string[];
   ownerid: string;
   square_footage: number;
   parking_spaces: number;
-  created_at: Date;
+  created_at: FieldValue;
   has_pool: boolean;
   has_garage: boolean;
   is_furnished: boolean;
   description: string;
-  images?: string[];
+  imageUrl: string;
   distance_to_market: number;
 }
 

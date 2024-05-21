@@ -36,6 +36,7 @@ interface Owner {
 }
 
 interface House {
+  title: string;
   house_id: string;
   bhk: {
     bedroom: number;

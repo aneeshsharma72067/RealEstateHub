@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { House } from "../@types/schemaType";
 import { fetchAllHouses } from "../services/firebase/firebaseFunctions";
+import { HouseStock1 } from "../assets/Images";
+import { NavLink } from "react-router-dom";
 
 type Props = {};
 
@@ -40,9 +42,25 @@ const Properties: React.FC<Props> = () => {
               <div className="flex-1 h-32 rounded-md bg-gradient-to-br from-slate-400 to-slate-300 animate-pulse"></div>
             </div>
           ) : houses.length ? (
-            <div>
-              {houses.map((house) => {
-                return <div>{house.ownerid}</div>;
+            <div className="grid grid-cols-4 gap-4">
+              {houses.map((house, key) => {
+                console.log(house);
+                return (
+                  <NavLink
+                    to={`/property-and-houses/${house.house_id}`}
+                    key={key}
+                    className="max-w-60 justify-start gap-4 rounded-lg flex flex-col bg-white px-3 py-2 "
+                  >
+                    <div className="w-full flex items-center justify-center">
+                      <img
+                        src={house.imageUrl ? house.imageUrl : HouseStock1}
+                        alt=""
+                        className="w-full rounded-lg"
+                      />
+                    </div>
+                    <div className="text-left">{house.title}</div>
+                  </NavLink>
+                );
               })}
             </div>
           ) : (
